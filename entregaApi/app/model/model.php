@@ -12,10 +12,6 @@ class model{
         $tables = $query->fetchAll();
         if(count($tables) == 0) {
             $sql =<<<END
-            --
-            -- Estructura de tabla para la tabla `socios`
-            --
-            
             CREATE TABLE `socios` (
               `id_socio` int(9) NOT NULL,
               `nombre_socio` varchar(25) NOT NULL,
@@ -29,7 +25,7 @@ class model{
             --
             
             INSERT INTO `socios` (`id_socio`, `nombre_socio`, `contraseña_socio`, `email_socio`, `tipo_subscripcion`) VALUES
-            (8, 'Enzo garcia', '$2y$10$xr3AfiMEmLcy3I1sxRKAcu7lOdMgMPeAFFBipgQ'.8wCg8mmAIembm', 'enzogarcia96@gmail.com', '5');
+            (8, 'Enzo garcia', '$2y$10$'xr3AfiMEmLcy3I1sxRKAcu7lOdMgMPeAFFBipgQ.8wCg8mmAIembm', 'enzogarcia96@gmail.com', '5');
             
             -- --------------------------------------------------------
             
@@ -96,6 +92,5 @@ class model{
             COMMIT;
 END;
 $this->db->query($sql);
-
     }
 }}

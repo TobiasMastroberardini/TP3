@@ -11,7 +11,6 @@ class pageModel extends model{
     {
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
-            header('Location: ' . BASE_URL . '/inicioSesion');
             die();
         }
     }
@@ -23,6 +22,15 @@ class pageModel extends model{
         $socios = $query->fetchAll(PDO::FETCH_OBJ);
 
         return $socios;
+    }
+
+    public function getSocio($id)
+    {
+        $query = $this->db->prepare('SELECT * FROM socios WHERE ID = ?');
+        $query->execute([$id]);
+        $socio = $query->fetch(PDO::FETCH_OBJ);
+
+        return $socio;
     }
     
     function obtenerPlan($id){
@@ -42,7 +50,7 @@ class pageModel extends model{
         return false;
     }
 
-    function borrarSocio($id){
+    function deleteSocio($id){
         $querry = $this->db->prepare('DELETE FROM socios WHERE ID = ?');
         $querry->execute([$id]);
         $querry = $this->db->prepare('DELETE FROM usuarios WHERE ID = ?');

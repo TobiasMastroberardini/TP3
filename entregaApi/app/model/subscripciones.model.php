@@ -40,7 +40,6 @@ class subscripcionesModel extends model
     public function verificar(){
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
-            header('Location: ' . BASE_URL . 'inicioSesion');
             die();
         }
     }
@@ -60,7 +59,7 @@ class subscripcionesModel extends model
         $querry->execute([$nombre,$sector,$precio,$duracion]);
     }
 
-    function borrarSub($id){
+    function deleteSub($id){
         $querry = $this->db->prepare('DELETE FROM subscripciones WHERE ID_subscripcion = ?');
         $querry->execute([$id]);
     }
