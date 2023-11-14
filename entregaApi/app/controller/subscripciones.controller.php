@@ -68,6 +68,26 @@ class subscripcionesController extends controller
 
     }
 
+    public function getSubscripcionesOrdenadas($params = []) {
+    // Verifica si los parámetros 'order' y 'sort' están presentes en la solicitud
+    if(isset($_GET['order']) && isset($_GET['sort'])){
+        $order = $_GET['order'];
+        $sort = $_GET['sort'];
+        // Llama a la función del modelo para obtener las subscripciones ordenadas
+        $subscripciones = $this->model->getSubscripcionesOrdenadas($order, $sort);
+        // Verifica si se obtuvieron resultados y responde según sea necesario
+        if($subscripciones){
+            $this->view->response($subscripciones, 200);
+        } else {
+            $this->view->response('Error, no se han podido obtener las subscripciones', 500);
+        } 
+    } else {
+        // Si no se proporcionan los parámetros necesarios, responde con un mensaje de error
+        $this->view->response('Parámetros de ordenación no proporcionados', 400);
+    }
+}
+
+
 
 
 
