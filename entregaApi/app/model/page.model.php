@@ -50,36 +50,11 @@ class pageModel extends model{
         $querry->execute([$nombre,$suscripcion,$rol,$id]);
     }
 
-
-
-
-
-
     function obtenerPlan($id){
         $querry = $this->db->prepare('SELECT * FROM subscripciones WHERE ID_subscripcion = ?');
         $querry->execute([$id]);
         $plan = $querry->fetch(PDO::FETCH_OBJ);
         return $plan;
-    }
-
-    public function esAdmin(){
-        $query = $this->db->prepare('SELECT rol FROM socios WHERE ID = ?');
-        $query->execute([$_SESSION['USER_ID']]);
-        $rol = $query->fetch(PDO::FETCH_OBJ);
-        if($rol->rol == 1){
-            return true;
-        }
-        return false;
-    }
-
-    function hacerAdmin($id){
-        $querry = $this->db->prepare('UPDATE socios SET rol = ? WHERE ID = ?');
-        $querry->execute([1,$id]);
-    }
-
-    function quitarAdmin($id){
-        $querry = $this->db->prepare('UPDATE socios SET rol = ? WHERE ID = ?');
-        $querry->execute([0,$id]);
     }
 
     function cambiarNombre($id, $nombre){
