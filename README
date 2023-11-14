@@ -12,7 +12,7 @@ Endpoints del trabajo:
 
 subscripciones:
 
-Listado de todas las subscripciones: obtiene un listado de todas las subscrpciones en formato de objeto JSON. HTTP METHOD: GET. Ejemplo para obtener todas las subscripciones de forma normal: localhost/entregaApi/api/sub 
+Listado de todas las subscripciones: obtiene un listado de todas las subscrpciones. HTTP METHOD: GET. Ejemplo para obtener todas las subscripciones de forma normal: localhost/entregaApi/api/sub 
 Ejemplo para obtener las subscripciones dado un campo de la tabla y un tipo de orden: localhost/entregaapi/api/sub/?sort=valor&order=desc
 
 Listado de una subscripcion por id: se ingresa el id de la subscripcion de la cual se quiere ver su información y se lista esa subscripcion en particular. HTTP METHOD: GET Ejemplo:localhost/entregaApi/api/sub/2
