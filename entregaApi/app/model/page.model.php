@@ -33,6 +33,28 @@ class pageModel extends model{
         return $socio;
     }
     
+    function createSocio($nombre,$suscripcion,$rol){
+        $querry = $this->db->prepare('INSERT INTO socios (nombre, suscripcion, rol) VALUES (? ,?, ?)');
+        $querry->execute([$nombre,$suscripcion,$rol]);
+    }
+
+    function deleteSocio($id){
+        $querry = $this->db->prepare('DELETE FROM socios WHERE ID = ?');
+        $querry->execute([$id]);
+        $querry = $this->db->prepare('DELETE FROM usuarios WHERE ID = ?');
+        $querry->execute([$id]);
+    }
+
+    function updateSocio($nombre, $suscripcion, $rol,$id){
+        $querry = $this->db->prepare('UPDATE socios SET nombre = ?, suscripcion = ?, rol = ? WHERE ID = ?');
+        $querry->execute([$nombre,$suscripcion,$rol,$id]);
+    }
+
+
+
+
+
+
     function obtenerPlan($id){
         $querry = $this->db->prepare('SELECT * FROM subscripciones WHERE ID_subscripcion = ?');
         $querry->execute([$id]);
@@ -48,13 +70,6 @@ class pageModel extends model{
             return true;
         }
         return false;
-    }
-
-    function deleteSocio($id){
-        $querry = $this->db->prepare('DELETE FROM socios WHERE ID = ?');
-        $querry->execute([$id]);
-        $querry = $this->db->prepare('DELETE FROM usuarios WHERE ID = ?');
-        $querry->execute([$id]);
     }
 
     function hacerAdmin($id){

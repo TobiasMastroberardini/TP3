@@ -1,15 +1,15 @@
 <?php
+require_once './app/controller/controller.php';
 require_once './app/model/auth.model.php';
 include_once './app/view/apiView.php';
 
-class authController {
-    private $view;
+class authController extends controller {
     private $model;
 
     function __construct()
     {
+        parent::__construct();
         $this->model = new authModel();
-        $this->view = new apiView();
     }
 
     function registrar(){

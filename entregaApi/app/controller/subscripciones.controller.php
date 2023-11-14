@@ -1,18 +1,18 @@
 <?php
+require_once './app/controller/controller.php';
 include_once './app/model/subscripciones.model.php';
 include_once './app/view/apiView.php';
 
 
-class subscripcionesController
+class subscripcionesController extends controller
 {
 
     private $model;
-    private $view;
 
     function __construct()
     {
+        parent::__construct();
         $this->model = new subscripcionesModel();
-        $this->view = new apiView();
     }
 
     function ShowSubs($params = [])
@@ -30,14 +30,13 @@ class subscripcionesController
 
     function addSubs()
     {
-        if (!empty($_POST['nuevo-nombre']) && !empty($_POST['nuevo-sector']) && !empty($_POST['nuevo-precio']) && !empty($_POST['nuevo-duracion'])) {
-            $nombre = $_POST['nuevo-nombre'];
-            $sector = $_POST['nuevo-sector'];
-            $precio = $_POST['nuevo-precio'];
-            $duracion = $_POST['nuevo-duracion'];
-            $this->model->agregarSub($nombre, $sector, $precio, $duracion);
-        } else {
-        }
+        $body = $this->getData();
+        $tipo = $body->tipo;
+        $caracteristicas = $body->caracteristicas;
+        $duracion = $body->duracion;
+        $precio = $body->precio;
+        $this->model->createSub($tipo, $caracteristicas, $precio, $duracion);
+        $this->view->response('la subscripcion fue agregada con exito', 201);
     }
     
     function deleteSubs($params = [])
@@ -50,6 +49,25 @@ class subscripcionesController
         } else
             $this->view->response("sub id=$id not found", 404);
     }
+
+    function updateSubs($params = []){
+        $id = $params[':ID'];
+        $sub = $this->model->getSub($id);
+
+        if ($sub) {
+            $body = $this->getData();
+            $tipo = $body->tipo;
+            $caracteristicas = $body->caracteristicas;
+            $duracion = $body->duracion;
+            $precio = $body->precio;
+            $this->model->updateSub($tipo, $caracteristicas, $precio, $duracion,$id);
+            $this->view->response("sub id=$id actualizada con éxito", 200);
+        }
+        else 
+            $this->view->response("sub id=$id not found", 404);
+
+    }
+
 
 
 

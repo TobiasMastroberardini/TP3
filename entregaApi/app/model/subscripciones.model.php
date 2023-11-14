@@ -28,14 +28,25 @@ class subscripcionesModel extends model
         return $subscripciones;
     }
 
-    public function getSubsFiltro($sector,$precioMin,$precioMax,$duracionMin,$duracionMax)
-    {
-        $query = $this->db->prepare('SELECT * FROM subscripciones WHERE precio > ? AND precio < ? AND caracteristicas = ? AND duracion > ? AND duracion < ?');
-        $query->execute([$precioMin,$precioMax,$sector,$duracionMin, $duracionMax]);
-        $subscripciones = $query->fetchAll(PDO::FETCH_OBJ);
-
-        return $subscripciones;
+    function createSub($tipo,$caracteristicas,$precio,$duracion){
+        $querry = $this->db->prepare('INSERT INTO subscripciones (tipo, caracteristicas, precio, duracion) VALUES (? ,?, ?, ?)');
+        $querry->execute([$tipo,$caracteristicas,$precio,$duracion]);
     }
+
+    function deleteSub($id){
+        $querry = $this->db->prepare('DELETE FROM subscripciones WHERE ID_subscripcion = ?');
+        $querry->execute([$id]);
+    }
+
+    function updateSub($tipo,$caracteristicas,$precio,$duracion,$id){
+        $querry = $this->db->prepare('UPDATE subscripciones SET tipo = ?, caracteristicas = ?, precio = ?, duracion = ? WHERE ID_subscripcion = ?');
+        $querry->execute([$tipo,$caracteristicas,$precio,$duracion,$id]);
+    }
+
+
+
+
+
 
     public function verificar(){
         session_start();
@@ -54,13 +65,12 @@ class subscripcionesModel extends model
         return false;
     }
 
-    function agregarSub($nombre,$sector,$precio,$duracion){
-        $querry = $this->db->prepare('INSERT INTO subscripciones (tipo, caracteristicas, precio, duracion) VALUES (? ,?, ?, ?)');
-        $querry->execute([$nombre,$sector,$precio,$duracion]);
-    }
+    public function getSubsFiltro($sector,$precioMin,$precioMax,$duracionMin,$duracionMax)
+    {
+        $query = $this->db->prepare('SELECT * FROM subscripciones WHERE precio > ? AND precio < ? AND caracteristicas = ? AND duracion > ? AND duracion < ?');
+        $query->execute([$precioMin,$precioMax,$sector,$duracionMin, $duracionMax]);
+        $subscripciones = $query->fetchAll(PDO::FETCH_OBJ);
 
-    function deleteSub($id){
-        $querry = $this->db->prepare('DELETE FROM subscripciones WHERE ID_subscripcion = ?');
-        $querry->execute([$id]);
+        return $subscripciones;
     }
 }
