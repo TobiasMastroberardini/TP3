@@ -44,25 +44,11 @@ class subscripcionesModel extends model
     }
 
 
-
-
-
-
     public function verificar(){
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
             die();
         }
-    }
-
-    public function esAdmin(){
-        $query = $this->db->prepare('SELECT rol FROM socios WHERE ID = ?');
-        $query->execute([$_SESSION['USER_ID']]);
-        $rol = $query->fetch(PDO::FETCH_OBJ);
-        if($rol->rol == 1){
-            return true;
-        }
-        return false;
     }
 
     public function getSubsFiltro($sector,$precioMin,$precioMax,$duracionMin,$duracionMax)
