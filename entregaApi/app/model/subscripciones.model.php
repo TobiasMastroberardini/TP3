@@ -73,4 +73,12 @@ class subscripcionesModel extends model
 
         return $subscripciones;
     }
+
+      public function getSubscripcionesOrdenadas($order, $sort)
+    {
+        $query = $this->db->prepare("SELECT * FROM subscripciones ORDER BY $sort $order");
+        $query->execute();
+        $subscripciones = $query->fetchAll(PDO::FETCH_OBJ);
+        return $subscripciones;
+    }
 }
