@@ -62,25 +62,6 @@ class pageController extends controller{
             $this->view->response("socio id=$id not found", 404);
     }
 
-
-
-
-
-
-
-
-
-
-    function hacerAdmin(){
-        $id = $_POST['socio_id'];
-        $this->model->hacerAdmin($id);
-    }
-
-    function quitarAdmin(){
-        $id = $_POST['socio_id'];
-        $this->model->quitarAdmin($id);
-    }
-
     function mostrarNoticias(){
         $this->model->verificar();
     }
