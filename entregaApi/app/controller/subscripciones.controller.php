@@ -85,42 +85,6 @@ class subscripcionesController extends controller
         // Si no se proporcionan los parámetros necesarios, responde con un mensaje de error
         $this->view->response('Parámetros de ordenación no proporcionados', 400);
     }
-}
-
-
-
-
-
-
-    function filtrar()
-    {
-        if (empty($_POST['filtro-precio-min'])) {
-            $precioMin = 1;
-        } else {
-            $precioMin = $_POST['filtro-precio-min'];
-        }
-        if (empty($_POST['filtro-precio-max'])) {
-            $precioMax = 999999;
-        } else {
-            $precioMax = $_POST['filtro-precio-max'];
-        }
-        if (empty($_POST['filtro-sector'])) {
-            $sector = 'POPULAR';
-        } else {
-            $sector = $_POST['filtro-sector'];
-        }
-        if (empty($_POST['filtro-duracion-min'])) {
-            $duracionMin = 0;
-        } else {
-            $duracionMin = $_POST['filtro-duracion-min'];
-        }
-        if (empty($_POST['filtro-duracion-max'])) {
-            $duracionMax = 99;
-        } else {
-            $duracionMax = $_POST['filtro-duracion-max'];
-        }
-        $subscripciones = $this->model->getSubsFiltro($sector, $precioMin, $precioMax, $duracionMin, $duracionMax);
-        $this->model->verificar();
-        $Admin = $this->model->esAdmin();
     }
+
 }
